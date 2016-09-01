@@ -6,5 +6,3 @@ The digital hymn board is an app that displays the songs that will be sung at a 
 ## Install
 In Progress
 
-## Configuration
-In progress
