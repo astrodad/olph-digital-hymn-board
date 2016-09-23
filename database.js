@@ -1,10 +1,10 @@
 var config = require('./config.json');
-const configCollection = "configuration";
+
 
 module.exports = {
 
 
-	getCurrentConfiguration: function (database) {
+	getCurrentConfiguration: function (database, config) {
 
 		var collection = database.collection(configCollection);
 
@@ -22,5 +22,29 @@ module.exports = {
 				doc;
 			}
 		});
+	},
+
+
+	getBoardConfiguration: function (database, config, callback) {
+
+		console.log('Someone requested the board configuration');
+		collection = database.collection("Boardconfig");
+		cursor = collection.find({name: 'primary'});
+		cursor.limit(1);
+
+		cursor.each(function (err, doc){
+
+			if (err || doc == null) {
+				console.log('Error getting the board configuration: unable to access collection in database');
+			} else if (doc != null) {
+
+				console.log('Board configuration found: ' + doc);
+				return callback(err, doc);
+			}
+
+			
+			return callback(err, doc);
+		}) ;
+
 	}
 }

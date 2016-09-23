@@ -1,0 +1,7 @@
+/* hymnboard styles */
+table{ 
+    width: 100%;
+}
+th, td{
+    width: 100%;
+}
