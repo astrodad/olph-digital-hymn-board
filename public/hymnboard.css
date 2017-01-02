@@ -1,0 +1,70 @@
+/* hymnboard styles */
+
+@font-face {
+    font-family: Inconsolata;
+    src: url('/fonts/Inconsolata_700_normal.ttf');
+    font-weight:700;
+}
+
+table{ 
+    width: 100%;
+    margin: 0px
+}
+th, td{
+    width: 100%;
+}
+
+body {
+
+
+	background: black;
+}
+
+tr.boardrow {line-height: 200px;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0px;
+	/* background: gray; */
+}
+
+span.boardentry {
+    text-align: justify;
+	height: 100%;
+	width: 100%;
+	display: block;
+	color: white;
+	font-family: 'Inconsolata', monospace;
+	font-weight: 900;
+	font-size: 250px;
+	padding: 1px 1px 1px 1px;
+
+}
+
+
+
+.boardcontainer {
+	width:720px; 
+	height:1280px;
+	overflow:hidden;
+	display: inline-block;
+	margin-top: -9px;
+	margin-left: -9px;
+}
+
+.boardentryinput {
+	font-family: 'Inconsolata', monospace;
+	font-weight: 900;
+	font-size: 250px;
+	padding: 1px 1px 1px 1px;
+	width: 400px;
+
+
+}
+
+
+a.boardedit:link,
+a.boardedit:visited,
+a.boardedit:active { color: white; text-decoration: none; }
+
+
+

@@ -1,0 +1,25 @@
+[{
+	"boardSlot": "1",
+	"slotType": "W",
+	"slotText": "55"
+}, {
+	"boardSlot": "2",
+	"slotType": "H",
+	"slotText": "556"
+}, {
+	"boardSlot": "3",
+	"slotType": "WS",
+	"slotText": "1"
+}, {
+	"boardSlot": "4",
+	"slotType": "H",
+	"slotText": "12"
+}, {
+	"boardSlot": "5",
+	"slotType": "WS",
+	"slotText": "23"
+}, {
+	"boardSlot": "6",
+	"slotType": "H",
+	"slotText": "678"
+}]

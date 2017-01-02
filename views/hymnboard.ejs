@@ -1,1 +1,144 @@
-This is the source for hymnboard.ejs
+<!-- views/login.ejs -->
+<!doctype html>
+<html>
+<head>
+     <title>Digital Hymnboard</title>
+    <link rel="stylesheet" href="/scripts/css/bootstrap-theme.min.css"> <!-- load bootstrap css -->
+
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <link href="/fonts/fonts.css rel="stylesheet">
+    
+    <link rel="stylesheet" href="/public/hymnboard.css">
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/public/jinplace-1.2.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+
+
+<div class="container-fluid">
+<div class="boardcontainer">
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table" id="boardtable">
+
+				<tbody>
+
+				<% boardslots.forEach(function(slot) { %>
+        
+				<tr class="boardrow">
+						<td> 
+							<span class="boardentry"><span class="editable"
+  								
+  								data-object="<%= slot.boardSlot %>"
+  								
+  								data-input-class="boardentryinput"
+  								data-attribute="slotType"
+  								data-placeholder="-"><%= slot.slotType %> </span></span>
+						</td>
+
+						<td>
+							<span class="boardentry"><span class="editable"
+  								
+  								data-object="<%= slot.boardSlot %>"
+  								
+  								data-input-class="boardentryinput"
+  								data-placeholder="--"
+  								data-attribute="slotText"
+  								data-placeholder="-"><%= slot.slotText %></span></span>
+						</td>
+
+					</tr>
+    		<% }); %>
+					
+				
+				</tbody>
+			</table>
+			
+		</div>
+	</div>
+</div>
+</div>
+<script>
+
+	var socket = io.connect();	
+	console.log(socket);
+
+	socket.on('message', function(data){
+		console.log(data.message);
+    	
+	});
+
+	socket.on('slotTextUpdated', function(data) {
+		console.log("Someone updated a slot text, refreshing...");
+		updateSlotText(data);
+		
+	})
+
+	socket.on('slotTypeUpdated', function(data) {
+		console.log("Someone updated a slot tye, refreshing...");
+		updateSlotType(data);
+	})
+
+	socket.emit('test', {data: 'test'});
+
+
+	<% if (authenticated ==  true) { %>
+
+
+		$(document).ready(function() {
+			console.log( "Ready. User = <%= authenticated %>" );
+	  		$('.editable').jinplace();
+		});
+
+		// Minimum example that does nothing.
+		$('.editable').jinplace({
+
+    		submitFunction: function(opts, value) {
+    			console.log('Submit opts:' + opts);
+    			console.log('Submit value: ' + value);
+    			console.log('Sending socket message to update slot.');
+    			socket.emit('slotUpdate', {
+    				slotObject: opts.object,
+    				slotAttribute: opts.attribute,
+    				slotValue: value
+
+    			});
+        		return value;
+    		}
+    });
+
+	<%} %> 
+
+
+
+
+	socket.on('slotTextUpdate', function(data) {
+         console.log('Got a broadcast message: ' + data);
+   });
+
+   function updateSlotText(updated) {
+
+   	var boardSlot = updated.boardSlot;
+   	var slotText = updated.slotText;
+
+   	$('span[data-object = ' + boardSlot + '][data-attribute = slotText]').text(updated.slotText);
+	
+   }
+
+   function updateSlotType(updated) {
+
+   	var boardSlot = updated.boardSlot;
+   	var slotType = updated.slotType;
+
+   	$('span[data-object = ' + boardSlot + '][data-attribute = slotType]').text(slotType);
+	
+   }
+
+
+
+</script>
+
+
+</body>
