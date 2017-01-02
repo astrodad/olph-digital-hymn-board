@@ -46,7 +46,7 @@ PCOService.prototype.getUpComingPlans = function getUpComingPlans(req, callback)
 	processPCORequest(this, req, this.upComingServicesUrl, this.getConfig(), function (err, data) {
       upcomingPlans = data; 
 
-      if (err) { console.log(error)}; //TODO: handle better
+      //if (err) { console.log(error)}; //TODO: handle better
 
       console.log(upcomingPlans.data);
       return callback(null, upcomingPlans.data);
@@ -74,22 +74,29 @@ PCOService.prototype.getPlanInfo = function getPlanInfo(req, plan, callback) {
      	console.log('config-self: ' + self.getConfig());
      	var planNotesResults = processPCORequest(self, req, notesurl, function (err, notesres) {
 
+
       		//handle error
       		var notesInfo = notesres.data;
       		console.log(notesInfo);
 
-      		for (var note in notesInfo) {
-      			console.log(note);
-      			if (notesInfo[note].attributes['category_name'] == 'Audio/Visual') {
-      				noteText = notesInfo[note].attributes['content']
-      			}
+          if (notesInfo.length) {
 
-      		}
+            for (var note in notesInfo) {
+              console.log(note);
+              if (notesInfo[note].attributes['category_name'] == 'Audio/Visual') {
+                noteText = notesInfo[note].attributes['content']
+              }
+
+            }
+          }
+      		
+
+
       		var planDetails = {
       			'id' 	: id,
       			'title'	: title,
       			'date' 	: date,
-      			'boardEntries' : noteText.split('\r\n') 
+      			'boardEntries' : (typeof noteText !== 'undefined' ? noteText.split('\r\n') : 'no board entries found') 
 
       		}
 
