@@ -2,7 +2,7 @@
   "name": "pcohymnboard",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node .",
     "start:dev": "DEBUG=* NODE_ENV=development nodemon"

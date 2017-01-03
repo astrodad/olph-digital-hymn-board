@@ -106,8 +106,8 @@ MongoClient.connect(config.dbService, function function_name (err, db) {
   // });
 
 
-  /* Start the web server */
-  var server = app.listen(config.port, function () {
+  /* Start the web server, using environment variable for the port or the config file. */
+  var server = app.listen(process.env.PORT || config.port, function () {
 
     var io = require('socket.io')(server);  //Connects server to socket.io
 
