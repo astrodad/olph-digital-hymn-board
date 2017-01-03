@@ -1,6 +1,6 @@
 {
   "port": "3000",
-  "dbService" : "mongodb://localhost:27017/digitalhymnboard",
+  "dbService" : "mongodb://olphboard:0lphhymns@ds019976.mlab.com:19976/digitalhymnboard",
   "sessionSecret" : "296dkNJcnsMEL99x17U7lu31324D38zA",
   "auth": {
     "applicationID": "xx",
